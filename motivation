@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Science of Motivation — Evidence Hub</title>
+<meta name="description" content="A curated hub of 20 cornerstone studies on motivation with summaries, links, and a mini playbook." />
+<style>
+:root{--bg:#0f1222;--fg:#f2f5ff;--muted:#a9b2c7;--brand:#7c9cff;--accent:#52f2c7;--glass:rgba(255,255,255,.08)}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto}
+.container{max-width:1100px;margin:0 auto;padding:24px}
+.hero{background:linear-gradient(150deg,var(--glass),transparent);border:1px solid #1e2237;border-radius:20px;padding:28px}
+h1{margin:0 0 6px;font-size:2rem;color:var(--fg)}p{color:var(--muted);line-height:1.6}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#1e2237;color:#c7d2fe;margin:6px 6px 0 0;font-size:.85rem}
+.grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px}
+.card{border:1px solid #1e2237;background:rgba(255,255,255,.03);border-radius:16px;padding:18px}
+.card h3{margin:0 0 6px;font-size:1.05rem;color:#f6f7ff}
+.card p{margin:6px 0 0}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+input,select{background:#0b0e1b;border:1px solid #1e2237;color:var(--fg);padding:10px 12px;border-radius:10px}
+footer{margin:28px 0;color:#7d89a6;font-size:.9rem}
+@media(min-width:880px){.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <h1>The Science of Motivation</h1>
+    <p>A curated set of <strong>20 foundational studies</strong> and meta-analyses with crisp takeaways and links. Filter by theme, skim summaries, and dive deeper.</p>
+    <div class="controls">
+      <input id="q" placeholder="Search by keyword (e.g., autonomy, goals, health)"/>
+      <select id="theme">
+        <option value="">All themes</option>
+        <option>Self-Determination Theory</option>
+        <option>Goal-Setting</option>
+        <option>Self-Efficacy</option>
+        <option>Implementation Intentions</option>
+        <option>Mindset</option>
+        <option>Behavior Change Techniques</option>
+        <option>Procrastination / Temporal</option>
+        <option>Health Behavior</option>
+        <option>Classic Theory</option>
+      </select>
+    </div>
+    <div class="badges">
+      <span class="badge">Evidence-first</span>
+      <span class="badge">Meta-analyses</span>
+      <span class="badge">Practical playbooks</span>
+    </div>
+  </section>
+
+  <section class="grid" id="list"></section>
+
+  <section class="card" style="margin-top:18px">
+    <h3>Mini Playbook</h3>
+    <p><strong>Design for autonomy</strong> (offer rationale, choice, competence-building feedback). Pair <strong>specific, challenging goals</strong> with <strong>if-then plans</strong>. Raise <strong>self-efficacy</strong> via mastery steps and credible feedback. Choose rewards that are <em>informational</em> (signal progress/competence) rather than controlling. Use the <strong>BCT Taxonomy</strong> to mix techniques deliberately.</p>
+  </section>
+
+  <footer>Built for Moe · 20 peer-reviewed pillars · © Motivation Evidence Hub</footer>
+</div>
+
+<script>
+const studies=[
+// theme, title, author, year, takeaway, url
+["Self-Determination Theory","Self-Determination Theory & Intrinsic Motivation","Ryan & Deci",2000,"Autonomy, competence, relatedness drive self-motivated behavior.","https://selfdeterminationtheory.org/SDT/documents/2000_RyanDeci_SDT.pdf"],
+["Rewards / Motivation","Extrinsic rewards & intrinsic motivation (meta)","Deci, Koestner & Ryan",1999,"Reward effects depend on contingency/type; controlling rewards can undermine IM.","https://depts.washington.edu/techdocs/papers/deciExtrinsicRewardsAndIntrinsicMotivation99.pdf"],
+["Rewards / Motivation","Intrinsic motivation + incentives & performance (meta)","Cerasoli et al.",2014,"Intrinsic → quality; salient incentives → quantity; both matter.","https://selfdeterminationtheory.org/wp-content/uploads/2017/06/2014_Cerasoli_Intrinsic.pdf"],
+["Goal-Setting","Building a Practically Useful Theory of Goal Setting","Locke & Latham",2002,"Specific, difficult goals improve performance via core mechanisms.","https://med.stanford.edu/content/dam/sm/s-spire/documents/PD.locke-and-latham-retrospective_Paper.pdf"],
+["Goal-Setting","Goal Setting & Group Performance (meta)","Kleingeld, van Mierlo & Arends",2011,"Team goals markedly raise performance; moderated by task complexity.","https://jacksonfall14professionalissues.pbworks.com/w/file/fetch/106743531/KleingeldetalGST.pdf"],
+["Implementation Intentions","Implementation intentions & goal achievement (meta)","Gollwitzer & Sheeran",2006,"If-then plans reliably bridge intention–action gaps.","https://www.sciencedirect.com/science/article/pii/S0065260106380021"],
+["Self-Efficacy","Self-efficacy & work performance (meta)","Stajkovic & Luthans",1998,"Robust positive relation across tasks and settings.","https://search.pdh.ebscohost.com/login.aspx?AN=1998-10661-005"],
+["Expectancy-Value","Motivational Beliefs, Values, and Goals","Eccles & Wigfield",2002,"Expectancy × value explains choices/persistence in learning.","https://www.annualreviews.org/content/journals/10.1146/annurev.psych.53.100901.135153"],
+["I-O Overview","Motivation theory in I-O psychology","Kanfer",1990,"Integrates need/value, cognitive choice, self-regulation perspectives.","https://web.mit.edu/curhan/www/docs/Articles/15341_Readings/Motivation/Kanfer_Motivation_Theory_in_Handbook_Indus_Orgl_Psych.pdf"],
+["Classic Theory","Theory of Planned Behavior","Ajzen",1991,"Attitudes, norms, control → intentions → behavior.","https://www.sciencedirect.com/science/article/abs/pii/074959789190020T"],
+["Procrastination / Temporal","Temporal Motivation Theory","Steel & König",2006,"Expectancy×Value is discounted by Delay; explains procrastination.","https://goal-lab.psych.umn.edu/orgpsych/readings/12.%20Judgment%20%26%20Decision%20Making/Steel%20%26%20Konig%20%282006%29.pdf"],
+["Procrastination / Temporal","Nature of procrastination (meta)","Steel",2007,"Procrastination as quintessential self-regulatory failure.","https://studypedia.au.dk/fileadmin/www.studiemetro.au.dk/Procrastination_2.pdf"],
+["Interest","Four-phase model of interest development","Hidi & Renninger",2006,"From triggered to well-developed interest; instructional supports matter.","https://www.tandfonline.com/doi/abs/10.1207/s15326985ep4102_4"],
+["Workplace SDT","Leader autonomy support (meta)","Slemp et al.",2018,"Autonomy-supportive leaders boost autonomous motivation & outcomes.","https://link.springer.com/article/10.1007/s11031-018-9698-y"],
+["Health SDT","SDT in health (meta)","Ng et al.",2012,"Autonomy-support relates to healthier behavior via needs/motivation.","https://selfdeterminationtheory.org/wp-content/uploads/2014/04/2012_NgNtoumanis_PPS.pdf"],
+["Health SDT","SDT-informed interventions (meta)","Ntoumanis et al.",2021,"Interventions improve motivation, behavior, and health outcomes.","https://www.tandfonline.com/doi/full/10.1080/17437199.2020.1718529"],
+["SDT Update","Intrinsic & extrinsic motivation (2020 review)","Ryan & Deci",2020,"Updated definitions & practice guidance for SDT.","https://selfdeterminationtheory.org/wp-content/uploads/2020/04/2020_RyanDeci_CEP_PrePrint.pdf"],
+["Mindset","National growth-mindset RCT","Yeager et al.",2019,"Short online lesson helped lower achievers; boosted advanced math uptake.","https://www.nature.com/articles/s41586-019-1466-y"],
+["Mindset","Growth mindset meta-analysis","Sisk et al.",2018,"Average effects are small; context/design moderators are key.","https://englelab.gatech.edu/articles/2018/Sisk,%20Burgoyne%20et%20al.%20(2018)%20-%20Mindset%20and%20Academic%20Achievement.pdf"],
+["Behavior Change Techniques","BCT Taxonomy v1 (93 techniques)","Michie et al.",2013,"Common language to design/report behavior-change interventions.","https://openaccess.city.ac.uk/id/eprint/3293/1/Michie%20et%20al%20Annals%20of%20Behavioral%20Medicine%202013%20-%20BCT%20Taxonomy%20v1.pdf"],
+];
+const list=document.getElementById('list');
+function render(){
+  const q=document.getElementById('q').value.toLowerCase();
+  const theme=document.getElementById('theme').value;
+  list.innerHTML='';
+  studies.filter(s=>{
+    const hay=[...s].join(' ').toLowerCase();
+    const themeMatch=!theme || s[0]===theme;
+    const qMatch=!q || hay.includes(q);
+    return themeMatch && qMatch;
+  }).forEach(s=>{
+    const el=document.createElement('article'); el.className='card';
+    el.innerHTML=`<h3>${s[1]} <span style="font-weight:400;color:#a9b2c7">(${s[2]}, ${s[3]})</span></h3>
+      <p><em>${s[0]}</em> — ${s[4]} <a href="${s[5]}" target="_blank" rel="noopener">Read</a></p>`;
+    list.appendChild(el);
+  });
+}
+render(); document.getElementById('q').oninput=render; document.getElementById('theme').onchange=render;
+</script>
+</body>
+</html>
